@@ -61,8 +61,12 @@ export const mockMacroStats = {
   ],
   attribution_opportunity: {
     score: 88,
-    max_score: 100,
-    rings: [
+    level: "HIGH",
+    origin_ips: 14,
+    fingerprints: 22,
+    mirror_onions: 18,
+    high_conf_pivots: 15,
+    ring_data: [
       { label: "Origin-IP disclosures", value: 31, maxValue: 35, color: "var(--chart-1)" },
       { label: "Infrastructure fingerprints", value: 24, maxValue: 25, color: "var(--chart-2)" },
       { label: "Clone / template links", value: 18, maxValue: 20, color: "var(--chart-3)" },
@@ -131,16 +135,54 @@ export const mockMacroStats = {
     }
   ],
   infrastructure_geography: {
-    countries: [
-      { country_code: "NLD", country_name: "Netherlands", numeric_id: "528", unique_ips_count: 6, exposure_score: 92, ips: ["185.220.101.44", "185.220.101.45"] },
-      { country_code: "DEU", country_name: "Germany", numeric_id: "276", unique_ips_count: 4, exposure_score: 78, ips: ["194.26.29.112", "194.26.29.113"] },
-      { country_code: "ROU", country_name: "Romania", numeric_id: "642", unique_ips_count: 3, exposure_score: 65, ips: ["45.154.255.8"] },
-      { country_code: "RUS", country_name: "Russia", numeric_id: "643", unique_ips_count: 5, exposure_score: 84, ips: ["91.240.118.23", "91.240.118.24"] }
-    ],
+    title: "Global Deanonymization Corroboration",
+    subtitle: "Clearnet origin disclosures corroborated by autonomous probes",
+    disclaimer: "IP geolocation indicates network registration or hosting location, not threat actor physical residence.",
+    total_corroborated_ips: 14,
+    show_choropleth: true,
+    country_exposure: {
+      "NLD": { country_code: "NLD", country_name: "Netherlands", numeric_id: "528", unique_ips_count: 6, exposure_score: 92, ips: ["185.220.101.44", "185.220.101.45"] },
+      "DEU": { country_code: "DEU", country_name: "Germany", numeric_id: "276", unique_ips_count: 4, exposure_score: 78, ips: ["194.26.29.112", "194.26.29.113"] },
+      "ROU": { country_code: "ROU", country_name: "Romania", numeric_id: "642", unique_ips_count: 3, exposure_score: 65, ips: ["45.154.255.8"] },
+      "RUS": { country_code: "RUS", country_name: "Russia", numeric_id: "643", unique_ips_count: 5, exposure_score: 84, ips: ["91.240.118.23", "91.240.118.24"] }
+    },
     origin_candidates: [
-      { ip: "185.220.101.44", asn_org: "HostPalace Web Services", country: "Netherlands", country_code: "NLD" },
-      { ip: "194.26.29.112", asn_org: "FlyServers LLC", country: "Germany", country_code: "DEU" },
-      { ip: "45.154.255.8", asn_org: "AlphaTelecom SRL", country: "Romania", country_code: "ROU" }
+      {
+        ip: "185.220.101.44",
+        asn_org: "HostPalace Web Services",
+        country: "Netherlands",
+        country_code: "NLD",
+        numeric_id: "528",
+        city: "Amsterdam",
+        confidence: 0.94,
+        source_onion: "http://nexus3vmkt...onion",
+        evidence_quote: "Apache mod_status leak exposed real backend IP in server headers.",
+        ip_role: "SERVER_STATUS_LEAK"
+      },
+      {
+        ip: "194.26.29.112",
+        asn_org: "FlyServers LLC",
+        country: "Germany",
+        country_code: "DEU",
+        numeric_id: "276",
+        city: "Frankfurt",
+        confidence: 0.88,
+        source_onion: "http://armoryiron...onion",
+        evidence_quote: "TLS certificate hash matched clearnet staging mirror.",
+        ip_role: "TLS_CERT_MATCH"
+      },
+      {
+        ip: "45.154.255.8",
+        asn_org: "AlphaTelecom SRL",
+        country: "Romania",
+        country_code: "ROU",
+        numeric_id: "642",
+        city: "Bucharest",
+        confidence: 0.85,
+        source_onion: "http://vortexlock...onion",
+        evidence_quote: "SSH hostkey fingerprint cross-referenced to bulletproof VPS.",
+        ip_role: "SSH_HOSTKEY_LEAK"
+      }
     ]
   },
   entity_velocity: [

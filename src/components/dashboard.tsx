@@ -669,7 +669,7 @@ function ObservedInfrastructureGeography({
                               variant={c.ip_role === "SERVER_STATUS_LEAK" ? "destructive" : "secondary"}
                               className="text-[9px] font-mono uppercase px-1.5 py-0"
                             >
-                              {c.ip_role.replace(/_/g, " ")}
+                              {(c.ip_role || "ORIGIN_LEAK").replace(/_/g, " ")}
                             </Badge>
                           </div>
                         </td>
@@ -687,7 +687,7 @@ function ObservedInfrastructureGeography({
                         </td>
                         <td className="px-3 py-2.5 font-mono text-xs text-primary max-w-[180px] truncate">
                           <span title={c.source_onion}>
-                            {c.source_onion.replace(/^http:\/\//, "").slice(0, 16)}...
+                            {(c.source_onion || c.ip || "onion").replace(/^http:\/\//, "").slice(0, 16)}...
                           </span>
                         </td>
                         <td className="px-3 py-2.5 font-mono text-[11px] text-muted-foreground/90 max-w-[320px] truncate">
