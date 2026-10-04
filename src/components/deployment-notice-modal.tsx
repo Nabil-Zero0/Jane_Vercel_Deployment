@@ -174,7 +174,7 @@ export function DeploymentNoticeModal() {
                 onClick={() => setIsOpen(false)}
                 className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-semibold text-sm transition-all shadow-md shadow-amber-500/20"
               >
-                I Understand — Explore Demo
+                I Understand - Explore Demo
               </button>
             </div>
           </div>

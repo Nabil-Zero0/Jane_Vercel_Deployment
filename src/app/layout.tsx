@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jane Dashboard — SIH 26 Demo",
-  description: "Jane — Dark Web Threat Actor Attribution Cockpit (Web Preview Demo)",
+  title: "Jane Dashboard - SIH 26 Demo",
+  description: "Jane - Dark Web Threat Actor Attribution Cockpit (Web Preview Demo)",
 };
 
 export default function RootLayout({
