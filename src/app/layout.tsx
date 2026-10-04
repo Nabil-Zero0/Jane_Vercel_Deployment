@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { DM_Sans, Geist_Mono, Inter } from "next/font/google";
+import { Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import "@xyflow/react/dist/style.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-// import { AgentationProvider } from "@/components/agentation-provider";
+import { DeploymentNoticeModal } from "@/components/deployment-notice-modal";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistMono = Geist_Mono({
   variable: "--font-mono",
@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jane Dashboard",
-  description: "Jane â€” Dark Web Threat Actor Attribution Cockpit",
+  title: "Jane Dashboard — SIH 26 Demo",
+  description: "Jane — Dark Web Threat Actor Attribution Cockpit (Web Preview Demo)",
 };
 
 export default function RootLayout({
@@ -35,8 +35,10 @@ export default function RootLayout({
           forcedTheme="dark"
           disableTransitionOnChange
         >
-          <TooltipProvider>{children}</TooltipProvider>
-          {/* <AgentationProvider /> */}
+          <TooltipProvider>
+            {children}
+            <DeploymentNoticeModal />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>
