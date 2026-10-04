@@ -480,7 +480,18 @@ function OpSecClock({ hour }: { hour: number | null }) {
 // ── Observed Infrastructure Geography & Choropleth ───────────────────────────
 
 // biome-ignore lint/suspicious/noExplicitAny: topojson types
-const geojson = topojson.feature(worldData as any, (worldData as any).objects.countries) as any;
+function getGeoJson() {
+  try {
+    const raw: any = (worldData as any)?.objects ? worldData : (worldData as any)?.default;
+    if (raw?.objects?.countries) {
+      return topojson.feature(raw, raw.objects.countries) as any;
+    }
+  } catch {
+    // safely ignore
+  }
+  return null;
+}
+const geojson = getGeoJson();
 
 function ObservedInfrastructureGeography({
   geo,
@@ -493,7 +504,7 @@ function ObservedInfrastructureGeography({
   const [activeTab, setActiveTab] = useState<"auto" | "map" | "table">("auto");
 
   // Determine current view mode: auto defaults to map if total >= 5, else table
-  const showMap = activeTab === "auto" ? defaultMap : activeTab === "map";
+  const showMap = (activeTab === "auto" ? defaultMap : activeTab === "map") && geojson !== null;
 
   // Build lookup index for world-atlas numeric IDs
   const exposureByNumericId = useMemo(() => {
@@ -757,6 +768,17 @@ export function Dashboard() {
     }
     return ["Financial Fraud / Carding", "Weapons Trafficking"];
   }, [stats?.threat_categories]);
+
+  if (!mounted) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+          <p className="text-xs text-muted-foreground font-mono">Initializing Command Center...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 p-4 lg:p-6">
