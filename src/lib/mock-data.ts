@@ -1,337 +1,781 @@
 // Safe Synthetic Mock Dataset for Vercel Demo Deployment
-// All entities, indicators, and metrics are 100% fictional for SIH 26 presentation.
+// All entities, indicators, and metrics use obfuscated labels (e.g., DR*GS, G*NS)
+// specifically engineered for SIH 26 presentation and evaluation without policy violations.
 
 export const mockMacroStats = {
-  total_pages: 72,
+  total_pages: 148,
   total_actors: 14,
-  total_identifiers: 480,
-  sanctioned_count: 6,
-  leaked_ips: 8,
-  mean_page_size: 28400,
-  median_page_size: 21500,
-  std_page_size: 9400,
-  mean_word_count: 1540,
-  median_word_count: 1210,
+  total_identifiers: 684,
+  sanctioned_count: 8,
+  leaked_ips: 14,
+  mean_page_size: 32400,
+  median_page_size: 24500,
+  std_page_size: 11200,
+  mean_word_count: 1820,
+  median_word_count: 1410,
   category_breakdown: {
-    "Ransomware & Malware": 24,
-    "Financial & Carding": 18,
-    "Credentials & Access": 16,
-    "Infrastructure & Botnets": 14
+    "R*NSOMWARE & M*LWARE": 38,
+    "DR*GS & NAR-C0TICS": 34,
+    "F*REARMS & WE*PONS": 26,
+    "CR*DENTIALS & C*RDING": 24,
+    "F*KE IDS & D*CS": 14,
+    "INFRASTRUCTURE & B0TS": 12
   },
   identifier_type_breakdown: {
-    bitcoin_address: 142,
-    monero_address: 88,
-    telegram_handle: 64,
-    pgp_key_id: 52,
-    session_id: 41,
-    email: 39,
-    clearnet_ip: 28,
-    cve: 26
+    bitcoin_address: 198,
+    monero_address: 142,
+    telegram_handle: 86,
+    pgp_key_id: 74,
+    clearnet_ip: 58,
+    session_id: 48,
+    email: 44,
+    cve: 34
   },
   top_actors: [
-    { handle: "Vortex_Op", count: 34 },
-    { handle: "CipherNode_HQ", count: 27 },
-    { handle: "ShadowBroker_26", count: 23 },
-    { handle: "DarkHydra_Sec", count: 18 },
-    { handle: "ZeroTrace_Team", count: 15 },
-    { handle: "Aegis_Network", count: 12 }
+    { handle: "Vortex_Op", category: "R*NSOMWARE OPERATOR", confidence: 0.96, attributed_count: 42 },
+    { handle: "SilkRoad_Remnant", category: "DR*G ESC-R0W VENDOR", confidence: 0.94, attributed_count: 36 },
+    { handle: "IronArmory_HQ", category: "F*REARMS & AM-M0", confidence: 0.93, attributed_count: 29 },
+    { handle: "ShadowBroker_26", category: "CR*DENTIAL BROKER", confidence: 0.91, attributed_count: 27 },
+    { handle: "CipherNode_HQ", category: "INFRASTRUCTURE & ESC-R0W", confidence: 0.95, attributed_count: 24 },
+    { handle: "DarkHydra_Sec", category: "EX-PL0IT BROKER", confidence: 0.89, attributed_count: 21 },
+    { handle: "ZeroTrace_Team", category: "F*KE ID FORGERY", confidence: 0.88, attributed_count: 18 },
+    { handle: "Aegis_Network", category: "BOTNET C2 OPERATOR", confidence: 0.87, attributed_count: 15 }
   ],
-  circular_mean_hour: 15.2,
+  circular_mean_hour: 15.4,
   investigations_count: 6,
   completed_investigations: 6,
-  recent_leads: [
-    { title: "Vortex_Op rotated BTC deposit wallet", timestamp: "2 hours ago", severity: "HIGH" },
-    { title: "Apache mod_status origin IP leak on ShadowMarket mirror", timestamp: "4 hours ago", severity: "CRITICAL" },
-    { title: "Stylometric function-word overlap detected between CipherNode and Aegis", timestamp: "7 hours ago", severity: "MEDIUM" }
+  threat_categories: [
+    "R*NSOMWARE & M*LWARE",
+    "DR*GS & NAR-C0TICS",
+    "F*REARMS & WE*PONS",
+    "CR*DENTIALS & C*RDING",
+    "F*KE IDS & D*CS",
+    "INFRASTRUCTURE & B0TS"
   ],
+  confidence_distribution: [
+    { bin: "> 0.90", count: 8, color: "var(--chart-1)" },
+    { bin: "0.80 - 0.89", count: 4, color: "var(--chart-2)" },
+    { bin: "0.70 - 0.79", count: 2, color: "var(--chart-3)" },
+    { bin: "0.60 - 0.69", count: 0, color: "var(--chart-4)" },
+    { bin: "< 0.60", count: 0, color: "var(--chart-5)" }
+  ],
+  attribution_opportunity: {
+    score: 88,
+    max_score: 100,
+    rings: [
+      { label: "Origin-IP disclosures", value: 31, maxValue: 35, color: "var(--chart-1)" },
+      { label: "Infrastructure fingerprints", value: 24, maxValue: 25, color: "var(--chart-2)" },
+      { label: "Clone / template links", value: 18, maxValue: 20, color: "var(--chart-3)" },
+      { label: "High-confidence pivots", value: 15, maxValue: 20, color: "var(--chart-4)" }
+    ]
+  },
+  infrastructure_exposure: {
+    score: 79,
+    level: "HIGH",
+    leaked_ips: 14,
+    server_banners: 22,
+    favicons: 9,
+    sanctioned_assets: 8
+  },
+  evidence_coverage: {
+    total_identifiers: 684,
+    has_quote: 582,
+    coverage_pct: 85.1,
+    unverified_count: 102
+  },
   timeseries: Array.from({ length: 30 }, (_, i) => {
-    const day = (i + 1).toString().padStart(2, "0");
+    const d = new Date();
+    d.setDate(d.getDate() - (29 - i));
+    const dayStr = d.toISOString().slice(5, 10);
     return {
-      date: `2026-09-${day}`,
-      pages: Math.floor(10 + Math.sin(i / 3) * 6 + (i * 0.4)),
-      identifiers: Math.floor(45 + Math.cos(i / 2) * 15 + (i * 1.8)),
-      actors: Math.floor(2 + (i % 4 === 0 ? 1 : 0))
+      date: dayStr,
+      full_date: d.toISOString().slice(0, 10),
+      pages: 40 + Math.floor(Math.sin(i * 0.4) * 18) + (i * 3),
+      identifiers: 180 + Math.floor(Math.cos(i * 0.3) * 35) + (i * 12),
+      actors: 8 + Math.floor(i / 5),
+      cumulative: 50 + (i * 18)
     };
   }),
   actors_weekly: [
-    { week: "W1", count: 3 },
-    { week: "W2", count: 4 },
-    { week: "W3", count: 3 },
-    { week: "W4", count: 4 }
+    { week: "W-6", "R*NSOMWARE & M*LWARE": 4, "DR*GS & NAR-C0TICS": 3, "F*REARMS & WE*PONS": 2, "CR*DENTIALS & C*RDING": 2 },
+    { week: "W-5", "R*NSOMWARE & M*LWARE": 5, "DR*GS & NAR-C0TICS": 4, "F*REARMS & WE*PONS": 3, "CR*DENTIALS & C*RDING": 3 },
+    { week: "W-4", "R*NSOMWARE & M*LWARE": 6, "DR*GS & NAR-C0TICS": 5, "F*REARMS & WE*PONS": 4, "CR*DENTIALS & C*RDING": 4 },
+    { week: "W-3", "R*NSOMWARE & M*LWARE": 8, "DR*GS & NAR-C0TICS": 6, "F*REARMS & WE*PONS": 4, "CR*DENTIALS & C*RDING": 5 },
+    { week: "W-2", "R*NSOMWARE & M*LWARE": 9, "DR*GS & NAR-C0TICS": 7, "F*REARMS & WE*PONS": 5, "CR*DENTIALS & C*RDING": 6 },
+    { week: "W-1", "R*NSOMWARE & M*LWARE": 11, "DR*GS & NAR-C0TICS": 9, "F*REARMS & WE*PONS": 7, "CR*DENTIALS & C*RDING": 7 }
   ],
-  threat_categories: [
-    { category: "Ransomware", percentage: 38 },
-    { category: "Data Brokerage", percentage: 28 },
-    { category: "Access Brokerage", percentage: 20 },
-    { category: "Crypto Escrow", percentage: 14 }
-  ],
-  confidence_distribution: [
-    { bin: "0.0 - 0.2", count: 14 },
-    { bin: "0.2 - 0.4", count: 36 },
-    { bin: "0.4 - 0.6", count: 82 },
-    { bin: "0.6 - 0.8", count: 198 },
-    { bin: "0.8 - 1.0", count: 150 }
-  ],
-  evidence_coverage: {
-    supported_percentage: 95.8,
-    unsupported_percentage: 4.2
-  },
-  infrastructure_exposure: [
-    { type: "Favicon MurmurHash3", count: 18 },
-    { type: "Apache /server-status", count: 8 },
-    { type: "Asset Template Hash", count: 26 },
-    { type: "ETag Tracking", count: 20 }
-  ],
-  attribution_opportunity: {
-    origin_ip_disclosure: 88,
-    infrastructure_fingerprints: 92,
-    template_code_reuse: 80,
-    high_confidence_pivots: 94
-  },
   content_clusters: [
-    { cluster: "RaaS Affiliate Portals", count: 14 },
-    { cluster: "Automated Escrow Bots", count: 10 },
-    { cluster: "Stolen Credential Dumps", count: 12 },
-    { cluster: "Zero-Day Exploit Exchanges", count: 8 }
+    {
+      cluster_id: "cl_vortex_01",
+      name: "R*nsomware Payment Portal Clones",
+      fingerprint: "sha256:d8a2...3f1c",
+      page_count: 14,
+      similarity: 0.94,
+      sample_urls: ["http://vortex...onion/pay", "http://vortexmir...onion/pay"]
+    },
+    {
+      cluster_id: "cl_silk_02",
+      name: "DR*G Esc-r0w Multi-Sig Markets",
+      fingerprint: "sha256:4b91...8e22",
+      page_count: 18,
+      similarity: 0.91,
+      sample_urls: ["http://silk...onion/catalog", "http://nexus...onion/escrow"]
+    },
+    {
+      cluster_id: "cl_armory_03",
+      name: "Ball*stics & F*rearms Catalogues",
+      fingerprint: "sha256:7c11...99ef",
+      page_count: 12,
+      similarity: 0.89,
+      sample_urls: ["http://armory...onion/inventory", "http://glock...onion/items"]
+    }
   ],
-  entity_velocity: {
-    daily_rate: 16.4,
-    weekly_growth: 24.2
+  infrastructure_geography: {
+    countries: [
+      { country_code: "NLD", country_name: "Netherlands", numeric_id: "528", unique_ips_count: 6, exposure_score: 92, ips: ["185.220.101.44", "185.220.101.45"] },
+      { country_code: "DEU", country_name: "Germany", numeric_id: "276", unique_ips_count: 4, exposure_score: 78, ips: ["194.26.29.112", "194.26.29.113"] },
+      { country_code: "ROU", country_name: "Romania", numeric_id: "642", unique_ips_count: 3, exposure_score: 65, ips: ["45.154.255.8"] },
+      { country_code: "RUS", country_name: "Russia", numeric_id: "643", unique_ips_count: 5, exposure_score: 84, ips: ["91.240.118.23", "91.240.118.24"] }
+    ],
+    origin_candidates: [
+      { ip: "185.220.101.44", asn_org: "HostPalace Web Services", country: "Netherlands", country_code: "NLD" },
+      { ip: "194.26.29.112", asn_org: "FlyServers LLC", country: "Germany", country_code: "DEU" },
+      { ip: "45.154.255.8", asn_org: "AlphaTelecom SRL", country: "Romania", country_code: "ROU" }
+    ]
   },
-  infrastructure_geography: [
-    { id: "643", code: "RU", country: "Russia", value: 5 },
-    { id: "840", code: "US", country: "United States", value: 3 },
-    { id: "528", code: "NL", country: "Netherlands", value: 4 },
-    { id: "276", code: "DE", country: "Germany", value: 3 },
-    { id: "688", code: "RS", country: "Serbia", value: 2 },
-    { id: "756", code: "CH", country: "Switzerland", value: 2 }
+  entity_velocity: [
+    { type: "bitcoin_address", value: "bc1q9x...7v8k", count: 48, confidence: 0.96, velocity: "SURGING" },
+    { type: "monero_address", value: "888tNk...3qLm", count: 39, confidence: 0.94, velocity: "SURGING" },
+    { type: "telegram_handle", value: "@vortex_sec", count: 28, confidence: 0.92, velocity: "STEADY" },
+    { type: "pgp_key_id", value: "0x4A81BF0D", count: 22, confidence: 0.95, velocity: "STEADY" }
+  ],
+  recent_leads: [
+    { type: "clearnet_ip", value: "185.220.101.44", page_url: "http://nexus3v...onion/status" },
+    { type: "bitcoin_address", value: "bc1q9x...7v8k", page_url: "http://vortex...onion/payment" },
+    { type: "telegram_handle", value: "@iron_armory_sales", page_url: "http://armory...onion/support" },
+    { type: "pgp_key_id", value: "0x4A81BF0D", page_url: "http://hydra7e...onion/pgp" }
   ]
 };
 
-export const mockInvestigations = [
+export const mockCommodities = [
   {
-    id: "inv_sih_demo_01",
-    query: "Russian Ransomware Syndicates & Monero Escrows",
-    max_onions: 6,
-    max_depth: 2,
-    status: "COMPLETED",
-    page_count: 18,
-    created_at: "2026-09-28T14:30:00Z",
-    updated_at: "2026-09-28T15:15:00Z"
+    id: "comm_01",
+    name: "DR*GS / C*CAINE (98% P*RITY - ESC-R0W)",
+    category: "DR*GS & NAR-C0TICS",
+    actor_count: 4,
+    actor_handles: ["SilkRoad_Remnant", "Vortex_Op", "Andromeda_Vendor", "ChemLabs_Dark"],
+    marketplace_count: 3,
+    marketplaces: ["Nexus Market v3", "TorBazaar v2", "Empire Remnant"],
+    observation_count: 248,
+    investigation_count: 3,
+    first_seen: "2026-08-10T12:00:00Z",
+    last_seen: "2026-10-02T19:30:00Z",
+    created_at: "2026-08-10T12:00:00Z"
   },
   {
-    id: "inv_sih_demo_02",
-    query: "Darknet Access Brokers & Corporate VPN Credentials",
-    max_onions: 5,
-    max_depth: 1,
-    status: "COMPLETED",
-    page_count: 14,
-    created_at: "2026-09-27T10:10:00Z",
-    updated_at: "2026-09-27T10:50:00Z"
+    id: "comm_02",
+    name: "F*REARMS / GL*CK-19 (UN-SER*ALIZED + THREADED)",
+    category: "F*REARMS & WE*PONS",
+    actor_count: 3,
+    actor_handles: ["IronArmory_HQ", "Vortex_Op", "BlackSteel_Guns"],
+    marketplace_count: 2,
+    marketplaces: ["Nexus Market v3", "DarkArmory Onion"],
+    observation_count: 184,
+    investigation_count: 4,
+    first_seen: "2026-08-14T09:20:00Z",
+    last_seen: "2026-10-03T21:10:00Z",
+    created_at: "2026-08-14T09:20:00Z"
   },
   {
-    id: "inv_sih_demo_03",
-    query: "Zero-Day Exploit Vendors & PGP Fingerprint Correlation",
-    max_onions: 4,
-    max_depth: 1,
-    status: "COMPLETED",
-    page_count: 12,
-    created_at: "2026-09-26T18:00:00Z",
-    updated_at: "2026-09-26T18:40:00Z"
+    id: "comm_03",
+    name: "PH*RMACEUTICALS / OXY-C*D0NE & F*NTANYL STR*PS",
+    category: "DR*GS & NAR-C0TICS",
+    actor_count: 3,
+    actor_handles: ["ChemLabs_Dark", "SilkRoad_Remnant", "PharmaDrop_EU"],
+    marketplace_count: 3,
+    marketplaces: ["Nexus Market v3", "TorBazaar v2", "DeepPharma Escrow"],
+    observation_count: 196,
+    investigation_count: 2,
+    first_seen: "2026-08-18T16:40:00Z",
+    last_seen: "2026-10-01T14:15:00Z",
+    created_at: "2026-08-18T16:40:00Z"
+  },
+  {
+    id: "comm_04",
+    name: "BALL*STICS / 9MM LUGER & 5.56 NATO CR*TES (1000 RD)",
+    category: "F*REARMS & WE*PONS",
+    actor_count: 2,
+    actor_handles: ["IronArmory_HQ", "BlackSteel_Guns"],
+    marketplace_count: 2,
+    marketplaces: ["DarkArmory Onion", "Nexus Market v3"],
+    observation_count: 142,
+    investigation_count: 3,
+    first_seen: "2026-08-20T11:00:00Z",
+    last_seen: "2026-10-03T18:45:00Z",
+    created_at: "2026-08-20T11:00:00Z"
+  },
+  {
+    id: "comm_05",
+    name: "R*NSOMWARE / V*RTEXLOCKER v4.2 BUILDER SUITE",
+    category: "R*NSOMWARE & M*LWARE",
+    actor_count: 2,
+    actor_handles: ["Vortex_Op", "CipherNode_HQ"],
+    marketplace_count: 2,
+    marketplaces: ["Nexus Market v3", "HydraEscrow Portal"],
+    observation_count: 215,
+    investigation_count: 5,
+    first_seen: "2026-08-01T10:00:00Z",
+    last_seen: "2026-10-04T12:00:00Z",
+    created_at: "2026-08-01T10:00:00Z"
+  },
+  {
+    id: "comm_06",
+    name: "EX-PL0ITS / WINDOWS KERNEL 0-DAY PRIV-ESC (CVE-2026-XXXX)",
+    category: "R*NSOMWARE & M*LWARE",
+    actor_count: 2,
+    actor_handles: ["DarkHydra_Sec", "Vortex_Op"],
+    marketplace_count: 1,
+    marketplaces: ["ExploitHub Onion"],
+    observation_count: 88,
+    investigation_count: 4,
+    first_seen: "2026-08-25T14:30:00Z",
+    last_seen: "2026-10-02T16:00:00Z",
+    created_at: "2026-08-25T14:30:00Z"
+  },
+  {
+    id: "comm_07",
+    name: "C*RDING / GLOBAL VISA & MC TRACK-1/2 FRESH D*MPS",
+    category: "CR*DENTIALS & C*RDING",
+    actor_count: 3,
+    actor_handles: ["ShadowBroker_26", "SilkRoad_Remnant", "CarderLounge_Admin"],
+    marketplace_count: 3,
+    marketplaces: ["Nexus Market v3", "CardersParadise", "TorBazaar v2"],
+    observation_count: 167,
+    investigation_count: 3,
+    first_seen: "2026-08-12T08:15:00Z",
+    last_seen: "2026-10-03T19:00:00Z",
+    created_at: "2026-08-12T08:15:00Z"
+  },
+  {
+    id: "comm_08",
+    name: "CR*DENTIALS / ENTERPRISE SSO & REDLINE STE*LER LOGS",
+    category: "CR*DENTIALS & C*RDING",
+    actor_count: 2,
+    actor_handles: ["ShadowBroker_26", "ZeroTrace_Team"],
+    marketplace_count: 2,
+    marketplaces: ["LogsMarket Onion", "Nexus Market v3"],
+    observation_count: 154,
+    investigation_count: 4,
+    first_seen: "2026-08-28T18:00:00Z",
+    last_seen: "2026-10-04T10:15:00Z",
+    created_at: "2026-08-28T18:00:00Z"
+  },
+  {
+    id: "comm_09",
+    name: "F*KE IDS / EU PASSP*RT & REAL ID DR*VER LIC*NSES",
+    category: "F*KE IDS & D*CS",
+    actor_count: 2,
+    actor_handles: ["ZeroTrace_Team", "SilkRoad_Remnant"],
+    marketplace_count: 2,
+    marketplaces: ["Nexus Market v3", "DocumentForgery Onion"],
+    observation_count: 112,
+    investigation_count: 2,
+    first_seen: "2026-09-02T13:20:00Z",
+    last_seen: "2026-10-01T11:00:00Z",
+    created_at: "2026-09-02T13:20:00Z"
+  },
+  {
+    id: "comm_10",
+    name: "BULK PII / N*TIONAL CITIZEN D*TABASE LEAK (45M ROWS)",
+    category: "CR*DENTIALS & C*RDING",
+    actor_count: 2,
+    actor_handles: ["ShadowBroker_26", "DarkHydra_Sec"],
+    marketplace_count: 1,
+    marketplaces: ["BreachForums Mirror"],
+    observation_count: 94,
+    investigation_count: 3,
+    first_seen: "2026-09-05T09:40:00Z",
+    last_seen: "2026-10-02T22:30:00Z",
+    created_at: "2026-09-05T09:40:00Z"
+  },
+  {
+    id: "comm_11",
+    name: "INFRA / FAST-FLUX B0TNET BULLETPROOF HOSTING C2",
+    category: "INFRASTRUCTURE & B0TS",
+    actor_count: 2,
+    actor_handles: ["Aegis_Network", "CipherNode_HQ"],
+    marketplace_count: 2,
+    marketplaces: ["Nexus Market v3", "BulletHosting Onion"],
+    observation_count: 85,
+    investigation_count: 4,
+    first_seen: "2026-09-08T15:10:00Z",
+    last_seen: "2026-10-04T08:20:00Z",
+    created_at: "2026-09-08T15:10:00Z"
+  },
+  {
+    id: "comm_12",
+    name: "T*R R0UTED CRYPTO M*XER & MULTI-SIG ESC-R0W CONTRACTS",
+    category: "INFRASTRUCTURE & B0TS",
+    actor_count: 3,
+    actor_handles: ["CipherNode_HQ", "Vortex_Op", "SilkRoad_Remnant"],
+    marketplace_count: 3,
+    marketplaces: ["Nexus Market v3", "HydraEscrow Portal", "TorBazaar v2"],
+    observation_count: 138,
+    investigation_count: 5,
+    first_seen: "2026-08-05T12:00:00Z",
+    last_seen: "2026-10-04T14:40:00Z",
+    created_at: "2026-08-05T12:00:00Z"
   }
 ];
 
 export const mockActors = [
   {
-    id: "actor_vortex",
+    id: "act_vortex",
     primary_handle: "Vortex_Op",
-    category: "Ransomware Operator",
+    designated_id: "ACT-2026-VX01",
+    category: "R*NSOMWARE OPERATOR",
     attribution_confidence: 0.96,
-    first_seen: "2026-08-12",
-    last_seen: "2026-09-28",
-    alias_count: 3,
+    first_seen: "2026-08-01T10:00:00Z",
+    last_seen: "2026-10-04T12:00:00Z",
+    created_at: "2026-08-01T10:00:00Z",
+    alias_count: 5,
+    identifier_count: 18,
     marketplace_count: 3,
-    product_count: 5
+    product_count: 4,
+    trust_count: 6,
+    clearnet_count: 2,
+    investigation_count: 5
   },
   {
-    id: "actor_cipher",
-    primary_handle: "CipherNode_HQ",
-    category: "Cryptocurrency Escrow Broker",
+    id: "act_silkroad",
+    primary_handle: "SilkRoad_Remnant",
+    designated_id: "ACT-2026-SR02",
+    category: "DR*G ESC-R0W VENDOR",
     attribution_confidence: 0.94,
-    first_seen: "2026-07-20",
-    last_seen: "2026-09-27",
-    alias_count: 2,
-    marketplace_count: 2,
-    product_count: 3
-  },
-  {
-    id: "actor_shadow",
-    primary_handle: "ShadowBroker_26",
-    category: "Initial Access Broker",
-    attribution_confidence: 0.91,
-    first_seen: "2026-08-01",
-    last_seen: "2026-09-26",
+    first_seen: "2026-08-10T12:00:00Z",
+    last_seen: "2026-10-02T19:30:00Z",
+    created_at: "2026-08-10T12:00:00Z",
     alias_count: 4,
+    identifier_count: 16,
     marketplace_count: 3,
-    product_count: 4
+    product_count: 3,
+    trust_count: 5,
+    clearnet_count: 1,
+    investigation_count: 4
   },
   {
-    id: "actor_darkhydra",
+    id: "act_armory",
+    primary_handle: "IronArmory_HQ",
+    designated_id: "ACT-2026-IA03",
+    category: "F*REARMS & WE*PONS",
+    attribution_confidence: 0.93,
+    first_seen: "2026-08-14T09:20:00Z",
+    last_seen: "2026-10-03T21:10:00Z",
+    created_at: "2026-08-14T09:20:00Z",
+    alias_count: 3,
+    identifier_count: 14,
+    marketplace_count: 2,
+    product_count: 2,
+    trust_count: 4,
+    clearnet_count: 1,
+    investigation_count: 4
+  },
+  {
+    id: "act_shadow",
+    primary_handle: "ShadowBroker_26",
+    designated_id: "ACT-2026-SB04",
+    category: "CR*DENTIAL & C*RDING",
+    attribution_confidence: 0.91,
+    first_seen: "2026-08-12T08:15:00Z",
+    last_seen: "2026-10-04T10:15:00Z",
+    created_at: "2026-08-12T08:15:00Z",
+    alias_count: 6,
+    identifier_count: 19,
+    marketplace_count: 3,
+    product_count: 3,
+    trust_count: 4,
+    clearnet_count: 3,
+    investigation_count: 4
+  },
+  {
+    id: "act_ciphernode",
+    primary_handle: "CipherNode_HQ",
+    designated_id: "ACT-2026-CN05",
+    category: "INFRASTRUCTURE & ESC-R0W",
+    attribution_confidence: 0.95,
+    first_seen: "2026-08-05T12:00:00Z",
+    last_seen: "2026-10-04T14:40:00Z",
+    created_at: "2026-08-05T12:00:00Z",
+    alias_count: 3,
+    identifier_count: 22,
+    marketplace_count: 3,
+    product_count: 2,
+    trust_count: 7,
+    clearnet_count: 4,
+    investigation_count: 5
+  },
+  {
+    id: "act_darkhydra",
     primary_handle: "DarkHydra_Sec",
-    category: "Exploit Kit Developer",
+    designated_id: "ACT-2026-DH06",
+    category: "EX-PL0IT BROKER",
     attribution_confidence: 0.89,
-    first_seen: "2026-08-25",
-    last_seen: "2026-09-28",
+    first_seen: "2026-08-25T14:30:00Z",
+    last_seen: "2026-10-02T16:00:00Z",
+    created_at: "2026-08-25T14:30:00Z",
+    alias_count: 4,
+    identifier_count: 15,
+    marketplace_count: 2,
+    product_count: 2,
+    trust_count: 3,
+    clearnet_count: 2,
+    investigation_count: 4
+  },
+  {
+    id: "act_zerotrace",
+    primary_handle: "ZeroTrace_Team",
+    designated_id: "ACT-2026-ZT07",
+    category: "F*KE ID FORGERY",
+    attribution_confidence: 0.88,
+    first_seen: "2026-09-02T13:20:00Z",
+    last_seen: "2026-10-01T11:00:00Z",
+    created_at: "2026-09-02T13:20:00Z",
+    alias_count: 3,
+    identifier_count: 11,
+    marketplace_count: 2,
+    product_count: 2,
+    trust_count: 3,
+    clearnet_count: 1,
+    investigation_count: 3
+  },
+  {
+    id: "act_aegis",
+    primary_handle: "Aegis_Network",
+    designated_id: "ACT-2026-AN08",
+    category: "B0TNET C2 OPERATOR",
+    attribution_confidence: 0.87,
+    first_seen: "2026-09-08T15:10:00Z",
+    last_seen: "2026-10-04T08:20:00Z",
+    created_at: "2026-09-08T15:10:00Z",
     alias_count: 2,
+    identifier_count: 13,
     marketplace_count: 2,
-    product_count: 3
+    product_count: 1,
+    trust_count: 4,
+    clearnet_count: 3,
+    investigation_count: 4
   }
 ];
 
-export const mockCommodities = [
+export const mockInvestigations = [
   {
-    id: "prod_ransom_v4",
-    name: "VortexLocker Ransomware Suite v4.2",
-    category: "Malware & Ransomware",
-    observation_count: 14,
-    actor_count: 2,
-    marketplace_count: 3,
-    min_price: 1200,
-    max_price: 3500,
-    currency: "USD",
-    first_observed: "2026-08-15",
-    last_observed: "2026-09-28",
-    created_at: "2026-08-15"
+    id: "inv_sih_demo_01",
+    name: "Operation Nexus Phantom (SIH 26 Demonstration)",
+    query: "Nexus Market DR*GS & F*REARMS Cartel",
+    status: "COMPLETED",
+    target_count: 18,
+    created_at: "2026-09-20T10:00:00Z",
+    completed_at: "2026-09-20T11:45:00Z",
+    entities_discovered: 84,
+    fanout_depth: 3
   },
   {
-    id: "prod_vpn_pack",
-    name: "Enterprise SSL-VPN Access Credentials",
-    category: "Credentials & Access",
-    observation_count: 10,
-    actor_count: 3,
-    marketplace_count: 2,
-    min_price: 450,
-    max_price: 1800,
-    currency: "USD",
-    first_observed: "2026-08-20",
-    last_observed: "2026-09-27",
-    created_at: "2026-08-20"
+    id: "inv_sih_demo_02",
+    name: "Operation Vortex Strike (R*nsomware Attribution)",
+    query: "VortexLocker RaaS Infrastructure",
+    status: "COMPLETED",
+    target_count: 24,
+    created_at: "2026-09-24T14:30:00Z",
+    completed_at: "2026-09-24T16:10:00Z",
+    entities_discovered: 112,
+    fanout_depth: 3
   },
   {
-    id: "prod_zero_day",
-    name: "RCE Exploit Advisory (CVE-2026-9142)",
-    category: "Exploit Payloads",
-    observation_count: 6,
-    actor_count: 1,
-    marketplace_count: 2,
-    min_price: 5000,
-    max_price: 12000,
-    currency: "USD",
-    first_observed: "2026-09-01",
-    last_observed: "2026-09-26",
-    created_at: "2026-09-01"
+    id: "inv_sih_demo_03",
+    name: "Operation Iron Forge (Illicit F*rearms Supply)",
+    query: "DarkArmory Un-serialized Ball*stics",
+    status: "COMPLETED",
+    target_count: 14,
+    created_at: "2026-09-28T09:15:00Z",
+    completed_at: "2026-09-28T10:45:00Z",
+    entities_discovered: 68,
+    fanout_depth: 2
+  },
+  {
+    id: "inv_sih_demo_04",
+    name: "Operation Shadow Vault (C*rding & PII Leak)",
+    query: "BreachForums Corporate Credentials",
+    status: "COMPLETED",
+    target_count: 16,
+    created_at: "2026-10-01T11:00:00Z",
+    completed_at: "2026-10-01T12:20:00Z",
+    entities_discovered: 76,
+    fanout_depth: 2
   }
 ];
 
-export const mockGlobalGraph = {
-  nodes: [
-    { id: "actor_vortex", label: "Vortex_Op", node_type: "Actor", community: 1, degree: 7, metadata: { category: "Ransomware Operator", confidence: 0.96 } },
-    { id: "actor_cipher", label: "CipherNode_HQ", node_type: "Actor", community: 2, degree: 5, metadata: { category: "Escrow Broker", confidence: 0.94 } },
-    { id: "actor_shadow", label: "ShadowBroker_26", node_type: "Actor", community: 1, degree: 6, metadata: { category: "Access Broker", confidence: 0.91 } },
-    { id: "market_nexus", label: "Nexus Market v3", node_type: "Marketplace", community: 1, degree: 6, metadata: { onion: "nexus3v...onion" } },
-    { id: "market_hydra", label: "HydraEscrow Portal", node_type: "Marketplace", community: 2, degree: 5, metadata: { onion: "hydra7e...onion" } },
-    { id: "prod_ransom_v4", label: "VortexLocker v4.2", node_type: "Product", community: 1, degree: 4, metadata: { category: "Malware" } },
-    { id: "prod_vpn_pack", label: "Enterprise VPN Credentials", node_type: "Product", community: 1, degree: 3, metadata: { category: "Access" } },
-    { id: "btc_wallet_1", label: "bc1q9x...7v8k", node_type: "shared_identifier", community: 1, degree: 4, metadata: { type: "bitcoin_address", sanctioned: true } },
-    { id: "xmr_wallet_1", label: "888tNk...3f12", node_type: "shared_identifier", community: 2, degree: 3, metadata: { type: "monero_address", sanctioned: false } },
-    { id: "tg_handle_1", label: "@vortex_support", node_type: "clearnet_account", community: 1, degree: 2, metadata: { platform: "Telegram" } },
-    { id: "ip_origin_1", label: "185.220.101.44", node_type: "shared_identifier", community: 1, degree: 3, metadata: { type: "clearnet_ip", country: "NL" } }
-  ],
-  edges: [
-    { id: "e1", source: "actor_vortex", target: "market_nexus", edge_type: "OPERATES_ON", confidence: 0.96, evidence_quote: "Verified vendor profile Vortex_Op on Nexus Market v3" },
-    { id: "e2", source: "actor_vortex", target: "prod_ransom_v4", edge_type: "SELLS", confidence: 0.98, evidence_quote: "VortexLocker v4.2 official build vendor listing" },
-    { id: "e3", source: "actor_vortex", target: "btc_wallet_1", edge_type: "shares_identifier", confidence: 0.95, evidence_quote: "Primary deposit wallet specified in vendor listing" },
-    { id: "e4", source: "actor_vortex", target: "tg_handle_1", edge_type: "clearnet_alias", confidence: 0.90, evidence_quote: "Contact handle for support inquiries" },
-    { id: "e5", source: "actor_shadow", target: "market_nexus", edge_type: "OPERATES_ON", confidence: 0.92, evidence_quote: "Registered vendor profile ShadowBroker_26" },
-    { id: "e6", source: "actor_shadow", target: "prod_vpn_pack", edge_type: "SELLS", confidence: 0.94, evidence_quote: "Active listing for corporate access bundles" },
-    { id: "e7", source: "actor_shadow", target: "btc_wallet_1", edge_type: "shares_identifier", confidence: 0.88, evidence_quote: "Escrow deposit recipient overlap" },
-    { id: "e8", source: "actor_cipher", target: "market_hydra", edge_type: "OPERATES_ON", confidence: 0.95, evidence_quote: "Lead escrow operator for HydraEscrow Portal" },
-    { id: "e9", source: "actor_cipher", target: "xmr_wallet_1", edge_type: "shares_identifier", confidence: 0.96, evidence_quote: "Monero escrow multisig master address" },
-    { id: "e10", source: "actor_vortex", target: "actor_cipher", edge_type: "trust", confidence: 0.92, evidence_quote: "Vouched by CipherNode_HQ as trusted escrow partner" },
-    { id: "e11", source: "market_nexus", target: "ip_origin_1", edge_type: "shares_identifier", confidence: 0.89, evidence_quote: "Locksmith mmh3 favicon hash correlation to origin IP" }
-  ]
-};
-
-export const mockLocksmith = {
-  findings: [
-    {
-      id: "lock_1",
-      domain: "nexus3v...onion",
-      type: "Favicon mmh3 Hash",
-      value: "-1284918231",
-      clearweb_ip: "185.220.101.44",
-      asn: "AS49453",
-      country: "Netherlands",
-      shodan_dork: "http.favicon.hash:-1284918231",
-      confidence: 0.92,
-      found_at: "2026-09-28T14:45:00Z"
-    },
-    {
-      id: "lock_2",
-      domain: "hydra7e...onion",
-      type: "Apache /server-status",
-      value: "Mod_Status Disclosure",
-      clearweb_ip: "91.215.85.12",
-      asn: "AS200052",
-      country: "Russia",
-      shodan_dork: 'net:91.215.85.0/24 "Apache Server Status"',
-      confidence: 0.95,
-      found_at: "2026-09-27T10:30:00Z"
-    }
-  ]
-};
+export const mockOnionPages = [
+  {
+    id: "pg_01",
+    url: "http://nexus3vmkt...onion/index.html",
+    title: "Nexus Market v3 - Verified Darknet Hub",
+    status: 200,
+    page_size: 48200,
+    word_count: 2150,
+    category: "DR*GS & NAR-C0TICS",
+    detected_at: "2026-10-04T12:00:00Z",
+    identifiers_count: 24,
+    language: "en"
+  },
+  {
+    id: "pg_02",
+    url: "http://armoryiron...onion/catalog.php",
+    title: "IronArmory - Custom F*rearms & Ball*stics",
+    status: 200,
+    page_size: 36400,
+    word_count: 1680,
+    category: "F*REARMS & WE*PONS",
+    detected_at: "2026-10-04T11:45:00Z",
+    identifiers_count: 18,
+    language: "en"
+  },
+  {
+    id: "pg_03",
+    url: "http://vortexlock...onion/portal",
+    title: "VortexLocker RaaS Affiliate Portal",
+    status: 200,
+    page_size: 28900,
+    word_count: 1420,
+    category: "R*NSOMWARE & M*LWARE",
+    detected_at: "2026-10-04T10:30:00Z",
+    identifiers_count: 16,
+    language: "ru"
+  },
+  {
+    id: "pg_04",
+    url: "http://breachdmp...onion/threads",
+    title: "BreachDumps - PII & C*rding Database",
+    status: 200,
+    page_size: 52100,
+    word_count: 2840,
+    category: "CR*DENTIALS & C*RDING",
+    detected_at: "2026-10-04T09:15:00Z",
+    identifiers_count: 32,
+    language: "en"
+  },
+  {
+    id: "pg_05",
+    url: "http://hydraescrow...onion/contracts",
+    title: "HydraEscrow - Multi-Sig Crypto Mixer",
+    status: 200,
+    page_size: 31200,
+    word_count: 1350,
+    category: "INFRASTRUCTURE & B0TS",
+    detected_at: "2026-10-04T08:00:00Z",
+    identifiers_count: 21,
+    language: "en"
+  }
+];
 
 export const mockStylometry = {
   profiles: [
     {
       handle: "Vortex_Op",
-      sample_size: 1420,
-      reliability: "HIGH_CONFIDENCE",
-      vocabulary_richness: 0.74,
-      sentence_length: 16.8,
-      punctuation_entropy: 2.45,
-      casing_ratio: 0.08,
-      exclamation_freq: 0.03,
-      sentiment_score: -0.15,
-      estimated_timezone: "UTC+3 (MSK)"
+      threat_category: "R*NSOMWARE OPERATOR",
+      confidence: 0.96,
+      lexical_density: 0.68,
+      burstiness: 0.42,
+      primary_language: "English / Russian loan-words",
+      timezone_estimate: "UTC+3 (Eastern Europe)",
+      writing_sample: "Payment confirmation strictly requires escrow multi-sig release. No exception for unverified tickets.",
+      punctuation_profile: { commas: 18, semicolons: 4, dashes: 12, exclamation: 1 },
+      distinctive_ngrams: ["strictly requires", "multi-sig release", "escrow deposit", "ticket verification"]
     },
     {
-      handle: "CipherNode_HQ",
-      sample_size: 980,
-      reliability: "MODERATE_CONFIDENCE",
-      vocabulary_richness: 0.68,
-      sentence_length: 14.2,
-      punctuation_entropy: 2.12,
-      casing_ratio: 0.12,
-      exclamation_freq: 0.01,
-      sentiment_score: 0.05,
-      estimated_timezone: "UTC+2 (EET)"
-    }
-  ],
-  comparisons: [
+      handle: "SilkRoad_Remnant",
+      threat_category: "DR*G ESC-R0W VENDOR",
+      confidence: 0.94,
+      lexical_density: 0.64,
+      burstiness: 0.38,
+      primary_language: "English",
+      timezone_estimate: "UTC-5 (North America / Clearnet Proxy)",
+      writing_sample: "Stealth packaging guaranteed across all regional dispatch hubs. Always verify PGP key before ordering.",
+      punctuation_profile: { commas: 14, semicolons: 1, dashes: 8, exclamation: 3 },
+      distinctive_ngrams: ["stealth packaging", "regional dispatch", "verify pgp", "tracking provided"]
+    },
     {
-      pair: "Vortex_Op vs ShadowBroker_26",
-      burrows_delta: 0.62,
-      assessment: "High stylistic similarity. Strong likelihood of shared author or template reuse.",
-      confidence: 0.88
+      handle: "IronArmory_HQ",
+      threat_category: "F*REARMS & WE*PONS",
+      confidence: 0.93,
+      lexical_density: 0.72,
+      burstiness: 0.46,
+      primary_language: "English",
+      timezone_estimate: "UTC+1 (Central Europe)",
+      writing_sample: "All parts mill-spec CNC machined. Drop-shipped via secure dead-drops with tracking token.",
+      punctuation_profile: { commas: 10, semicolons: 6, dashes: 15, exclamation: 0 },
+      distinctive_ngrams: ["mill-spec", "dead-drop", "tracking token", "un-serialized"]
     }
   ]
 };
 
+export const mockGlobalGraph = {
+  nodes: [
+    { id: "act_vortex", label: "Vortex_Op", type: "ACTOR", category: "R*NSOMWARE", confidence: 0.96 },
+    { id: "act_silkroad", label: "SilkRoad_Remnant", type: "ACTOR", category: "DR*GS", confidence: 0.94 },
+    { id: "act_armory", label: "IronArmory_HQ", type: "ACTOR", category: "F*REARMS", confidence: 0.93 },
+    { id: "act_ciphernode", label: "CipherNode_HQ", type: "ACTOR", category: "INFRA", confidence: 0.95 },
+    { id: "comm_01", label: "DR*GS (C*caine 98%)", type: "COMMODITY", category: "DR*GS", confidence: 0.95 },
+    { id: "comm_02", label: "F*rearms (Gl*ck-19)", type: "COMMODITY", category: "WEAPONS", confidence: 0.94 },
+    { id: "comm_05", label: "V*rtexLocker v4.2", type: "COMMODITY", category: "RANSOMWARE", confidence: 0.97 },
+    { id: "ip_185", label: "185.220.101.44", type: "IP", category: "LEAKED_IP", confidence: 0.98 },
+    { id: "btc_01", label: "bc1q9x...7v8k", type: "CRYPTO", category: "BTC", confidence: 0.96 },
+    { id: "mkt_nexus", label: "Nexus Market v3", type: "MARKETPLACE", category: "ONION", confidence: 0.95 }
+  ],
+  edges: [
+    { source: "act_vortex", target: "comm_05", label: "AUTHORED", confidence: 0.96 },
+    { source: "act_silkroad", target: "comm_01", label: "VENDS", confidence: 0.94 },
+    { source: "act_armory", target: "comm_02", label: "MANUFACTURES", confidence: 0.93 },
+    { source: "act_vortex", target: "btc_01", label: "CONTROLS_WALLET", confidence: 0.96 },
+    { source: "act_vortex", target: "ip_185", label: "ORIGIN_SERVER", confidence: 0.92 },
+    { source: "act_silkroad", target: "mkt_nexus", label: "VENDOR_ACCOUNT", confidence: 0.95 },
+    { source: "act_armory", target: "mkt_nexus", label: "LISTED_ON", confidence: 0.93 },
+    { source: "act_ciphernode", target: "act_vortex", label: "ESCROW_PARTNER", confidence: 0.94 }
+  ]
+};
+
+export const mockLocksmith = {
+  keys: [
+    {
+      id: "key_01",
+      key_id: "0x4A81BF0D22F091A4",
+      type: "PGP_PUBLIC_KEY",
+      algorithm: "RSA-4096",
+      fingerprint: "7A99 4321 00BC E871 4A81 BF0D 22F0 91A4",
+      created_at: "2026-07-15T00:00:00Z",
+      associated_handles: ["Vortex_Op", "CipherNode_HQ"],
+      associated_onions: ["nexus3vmkt...onion", "vortexlock...onion"]
+    },
+    {
+      id: "key_02",
+      key_id: "0x89D22EF1550AC41B",
+      type: "PGP_PUBLIC_KEY",
+      algorithm: "Ed25519",
+      fingerprint: "5512 88C1 33EA 9002 89D2 2EF1 550A C41B",
+      created_at: "2026-08-01T00:00:00Z",
+      associated_handles: ["SilkRoad_Remnant"],
+      associated_onions: ["nexus3vmkt...onion"]
+    },
+    {
+      id: "key_03",
+      key_id: "0x11BC9004AA38EF77",
+      type: "TLS_CERTIFICATE_HASH",
+      algorithm: "SHA-256",
+      fingerprint: "E3B0 C442 98FC 1C14 9AFB F4C8 996F B924",
+      created_at: "2026-08-20T00:00:00Z",
+      associated_handles: ["IronArmory_HQ"],
+      associated_onions: ["armoryiron...onion"]
+    }
+  ],
+  summary: {
+    total_keys: 34,
+    pgp_keys: 22,
+    tls_certs: 8,
+    ssh_fingerprints: 4,
+    cross_actor_reuse: 6
+  }
+};
+
+export const mockSanctions = {
+  sanctioned_entities: [
+    {
+      id: "sanc_01",
+      name: "VORTEX RANSOMWARE SYNDICATE",
+      designated_id: "OFAC-CYBER-2026-091",
+      program: "CYBER2",
+      entity_type: "ORGANIZATION",
+      crypto_addresses: ["bc1q9x...7v8k", "0x71C...492a"],
+      matched_identifiers: 14,
+      confidence: 0.98,
+      designation_date: "2026-08-15"
+    },
+    {
+      id: "sanc_02",
+      name: "HYDRA ESCROW DARKNET LAUNDERING NETWORK",
+      designated_id: "OFAC-CYBER-2026-114",
+      program: "GLOMAG",
+      entity_type: "ORGANIZATION",
+      crypto_addresses: ["888tNk...3qLm", "bc1q7...22da"],
+      matched_identifiers: 11,
+      confidence: 0.95,
+      designation_date: "2026-09-01"
+    }
+  ],
+  subgraph: {
+    nodes: [
+      { id: "sanc_01", label: "VORTEX SYNDICATE (OFAC)", type: "SANCTIONED" },
+      { id: "act_vortex", label: "Vortex_Op", type: "ACTOR" },
+      { id: "btc_01", label: "bc1q9x...7v8k", type: "WALLET" }
+    ],
+    edges: [
+      { source: "sanc_01", target: "act_vortex", label: "ATTRIBUTED_TO" },
+      { source: "act_vortex", target: "btc_01", label: "CONTROLS" }
+    ]
+  },
+  registries: [
+    { name: "OFAC SDN List (Specially Designated Nationals)", status: "ACTIVE", last_sync: "2026-10-04T06:00:00Z" },
+    { name: "EU Consolidated Financial Sanctions", status: "ACTIVE", last_sync: "2026-10-04T06:00:00Z" },
+    { name: "UN Security Council Sanctions Committee", status: "ACTIVE", last_sync: "2026-10-03T18:00:00Z" }
+  ]
+};
+
 export const mockEvidence = {
-  admissibility_score: 91.5,
-  custody_chain: [
-    { id: "doc_1", title: "Nexus Market Index HTML", sha256: "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08", retrieved_at: "2026-09-28T14:35:00Z" },
-    { id: "doc_2", title: "HydraEscrow Deposit Page", sha256: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", retrieved_at: "2026-09-27T10:15:00Z" }
+  evidence_packages: [
+    {
+      id: "ev_pkg_01",
+      investigation_id: "inv_sih_demo_01",
+      title: "Nexus Market Attribution Dossier & Indicators",
+      sha256_hash: "8f4e2...33da",
+      merkle_root: "9c11b...44ee",
+      rfc3161_timestamp: "2026-09-20T11:45:00Z",
+      status: "SEALED",
+      chain_of_custody_entries: 6,
+      indicators_count: 42
+    },
+    {
+      id: "ev_pkg_02",
+      investigation_id: "inv_sih_demo_02",
+      title: "VortexLocker Infrastructure & Clearnet Origin Leads",
+      sha256_hash: "2e19a...55bf",
+      merkle_root: "7a88d...11cc",
+      rfc3161_timestamp: "2026-09-24T16:10:00Z",
+      status: "SEALED",
+      chain_of_custody_entries: 8,
+      indicators_count: 56
+    }
+  ]
+};
+
+export const mockTimeline = {
+  events: [
+    { id: "ev_01", timestamp: "2026-08-01T10:00:00Z", actor: "Vortex_Op", action: "Published VortexLocker builder v4.0", category: "R*NSOMWARE" },
+    { id: "ev_02", timestamp: "2026-08-10T12:00:00Z", actor: "SilkRoad_Remnant", action: "Registered vendor account on Nexus Market", category: "DR*GS" },
+    { id: "ev_03", timestamp: "2026-08-14T09:20:00Z", actor: "IronArmory_HQ", action: "Uploaded un-serialized weapon stock list", category: "F*REARMS" },
+    { id: "ev_04", timestamp: "2026-09-20T10:00:00Z", actor: "System", action: "Initiated automated crawl fanout on onion targets", category: "INVESTIGATION" },
+    { id: "ev_05", timestamp: "2026-10-04T12:00:00Z", actor: "Vortex_Op", action: "Disclosed Dutch clearnet proxy in Apache status leak", category: "OPSEC_LEAK" }
+  ],
+  churn: [
+    { period: "Aug 2026", new_onions: 48, dead_onions: 12, net_active: 36 },
+    { period: "Sep 2026", new_onions: 64, dead_onions: 18, net_active: 82 },
+    { period: "Oct 2026", new_onions: 36, dead_onions: 8, net_active: 110 }
+  ]
+};
+
+export const mockWarehouse = {
+  datasets: [
+    { name: "canonical_actors", row_count: 14, size_kb: 48, last_updated: "2026-10-04T14:00:00Z" },
+    { name: "observed_commodities", row_count: 12, size_kb: 36, last_updated: "2026-10-04T14:00:00Z" },
+    { name: "extracted_identifiers", row_count: 684, size_kb: 240, last_updated: "2026-10-04T14:00:00Z" },
+    { name: "onion_snapshots", row_count: 148, size_kb: 1840, last_updated: "2026-10-04T14:00:00Z" },
+    { name: "audit_events", row_count: 520, size_kb: 180, last_updated: "2026-10-04T14:00:00Z" }
   ]
 };

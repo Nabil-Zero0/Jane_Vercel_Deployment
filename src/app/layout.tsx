@@ -4,7 +4,6 @@ import "./globals.css";
 import "@xyflow/react/dist/style.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { DeploymentNoticeModal } from "@/components/deployment-notice-modal";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -35,10 +34,7 @@ export default function RootLayout({
           forcedTheme="dark"
           disableTransitionOnChange
         >
-          <TooltipProvider>
-            {children}
-            <DeploymentNoticeModal />
-          </TooltipProvider>
+          <TooltipProvider>{children}</TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

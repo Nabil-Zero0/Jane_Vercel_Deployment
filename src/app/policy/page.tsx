@@ -1,3 +1,4 @@
+import { DeploymentNoticeModal } from "@/components/deployment-notice-modal";
 "use client";
 
 import React, { useState } from "react";
@@ -1093,6 +1094,7 @@ RAW_HTML_RETENTION_DAYS=7`;
           </main>
         </div>
       </div>
+    <DeploymentNoticeModal />
     </AppShell>
   );
 }

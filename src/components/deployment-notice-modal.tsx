@@ -6,17 +6,31 @@ export function DeploymentNoticeModal() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Open on load
-    setIsOpen(true);
+    // Only open on first visit to policy page in this session
+    try {
+      const seen = sessionStorage.getItem("jane_policy_notice_seen");
+      if (!seen) {
+        setIsOpen(true);
+      }
+    } catch {
+      setIsOpen(true);
+    }
   }, []);
+
+  const handleDismiss = () => {
+    setIsOpen(false);
+    try {
+      sessionStorage.setItem("jane_policy_notice_seen", "true");
+    } catch {}
+  };
 
   return (
     <>
-      {/* Floating trigger button to re-open anytime */}
+      {/* Floating trigger button on Policy page to re-open anytime */}
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 z-40 flex items-center gap-2 rounded-full border border-amber-500/40 bg-background/90 px-3.5 py-1.5 text-xs font-medium text-amber-400 shadow-lg backdrop-blur-md transition-all hover:bg-amber-950/40 hover:border-amber-400"
+        className="fixed bottom-4 right-4 z-40 flex items-center gap-2 rounded-full border border-amber-500/40 bg-zinc-950/90 px-3.5 py-1.5 text-xs font-medium text-amber-400 shadow-lg backdrop-blur-md transition-all hover:bg-amber-950/40 hover:border-amber-400"
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
@@ -46,7 +60,7 @@ export function DeploymentNoticeModal() {
               </div>
               <button
                 type="button"
-                onClick={() => setIsOpen(false)}
+                onClick={handleDismiss}
                 className="rounded-lg p-1.5 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/80 transition-colors"
                 aria-label="Close"
               >
@@ -65,17 +79,17 @@ export function DeploymentNoticeModal() {
             {/* Main Explanatory Text */}
             <div className="space-y-3 text-sm text-zinc-300 leading-relaxed">
               <p>
-                <strong className="text-amber-300">This is just a deployment.</strong> The data shown on this Vercel-deployed site is <strong className="text-zinc-100">synthetic mock data</strong> and we cannot show the real data here because of strict GitHub and web hosting policies.
+                <strong className="text-amber-300">This is just a deployment.</strong> The data shown on this Vercel-deployed site is <strong className="text-zinc-100">synthetic mock data</strong> and we cannot show the real data here because of GitHub policies.
               </p>
               <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 text-xs md:text-sm text-zinc-300 space-y-2">
                 <div className="flex items-start gap-2.5">
-                  <span className="text-amber-400 font-bold">??</span>
+                  <span className="text-amber-400 font-bold">!</span>
                   <p>
-                    We received a notice that pushing real dark web intelligence, raw onion scrapes, and illicit target dumps to core code repositories is against GitHub policy. Consequently, live onion scrapes <strong className="text-zinc-100">cannot be hosted or exposed on the Clearnet / public web</strong>.
+                    We got a notice that pushing real data to core is against GitHub policy and thus we cannot host it on Clearnet or on the normal web. All data shown here is mock data for evaluation purposes.
                   </p>
                 </div>
-                <p className="text-zinc-400 pl-6">
-                  All threat actors, addresses, pages, and graph relationships displayed in this interface are generated safely for UI evaluation.
+                <p className="text-zinc-400 pl-4">
+                  For safety and compliance, illicit terms are obfuscated (e.g., DR*GS, F*REARMS) and all threat actors and addresses are synthetic simulation records.
                 </p>
               </div>
             </div>
@@ -83,7 +97,7 @@ export function DeploymentNoticeModal() {
             {/* Real Data Access Options */}
             <div className="mt-5 space-y-3">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                How to verify real data & live scraping:
+                To access real data and live verification:
               </h3>
 
               <div className="grid gap-2.5">
@@ -104,10 +118,10 @@ export function DeploymentNoticeModal() {
                       <span className="font-semibold text-sm text-zinc-100 group-hover:text-red-400">
                         1. Watch Full Live Demo Video
                       </span>
-                      <span className="text-xs text-zinc-500">YouTube ?</span>
+                      <span className="text-xs text-zinc-500">YouTube -&gt;</span>
                     </div>
                     <p className="text-xs text-zinc-400 mt-0.5">
-                      Watch the complete demo video where we scrape real data from Tor and the Darknet in real time.
+                      Watch the complete demo video in which we have scraped real data from Tor and the Darknet.
                     </p>
                   </div>
                 </a>
@@ -127,17 +141,17 @@ export function DeploymentNoticeModal() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
                       <span className="font-semibold text-sm text-zinc-100 group-hover:text-blue-400">
-                        2. Clone Core GitHub Repository
+                        2. Clone GitHub Repository & Run Yourself
                       </span>
-                      <span className="text-xs text-zinc-500">GitHub ?</span>
+                      <span className="text-xs text-zinc-500">GitHub -&gt;</span>
                     </div>
                     <p className="text-xs text-zinc-400 mt-0.5">
-                      Clone the main repository, install Python/Tor dependencies, and run the real crawlers locally on your machine.
+                      You can clone the GitHub repository and run the full backend, crawlers, and database yourself locally.
                     </p>
                   </div>
                 </a>
 
-                {/* 3. Scraped tor proof */}
+                {/* 3. Demo video live scraping proof */}
                 <a
                   href="https://youtu.be/bxH6rF4c-xg"
                   target="_blank"
@@ -152,12 +166,12 @@ export function DeploymentNoticeModal() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
                       <span className="font-semibold text-sm text-zinc-100 group-hover:text-purple-400">
-                        3. Tor & Darknet Real Scrapes Walkthrough
+                        3. Tor & Darknet Real Scrapes Demonstration
                       </span>
-                      <span className="text-xs text-zinc-500">Video ?</span>
+                      <span className="text-xs text-zinc-500">Video -&gt;</span>
                     </div>
                     <p className="text-xs text-zinc-400 mt-0.5">
-                      Step-by-step footage demonstrating active onion harvesting, indicator normalization, and intelligence generation.
+                      See the demo video showing real dark web investigation and live onion crawling results.
                     </p>
                   </div>
                 </a>
@@ -167,11 +181,11 @@ export function DeploymentNoticeModal() {
             {/* Footer Dismiss Button */}
             <div className="mt-6 flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-4 border-t border-zinc-800">
               <span className="text-xs text-zinc-500 text-center sm:text-left">
-                You are currently viewing the <span className="text-zinc-300">Policy & Compliance</span> mandate.
+                You are currently viewing the <span className="text-zinc-300">Policy & Mandate</span> page.
               </span>
               <button
                 type="button"
-                onClick={() => setIsOpen(false)}
+                onClick={handleDismiss}
                 className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-semibold text-sm transition-all shadow-md shadow-amber-500/20"
               >
                 I Understand - Explore Demo
