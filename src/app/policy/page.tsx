@@ -1,5 +1,6 @@
-import { DeploymentNoticeModal } from "@/components/deployment-notice-modal";
 "use client";
+
+import { DeploymentNoticeModal } from "@/components/deployment-notice-modal";
 
 import React, { useState } from "react";
 import Link from "next/link";
